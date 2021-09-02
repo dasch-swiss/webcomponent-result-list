@@ -153,29 +153,113 @@
 
         switch (propValue['@type']) {
             case 'knora-api:DecimalValue':
-                // TODO -> ['knora-api:decimalValueAsDecimal']['@value'] = '1.5'
+                // ['knora-api:decimalValueAsDecimal']['@value'] = '1.5'
+                ontology.forEach(onto => {
+                    if (onto['@id'] === propName) {
+                        if (resource[propName]) {
+                            resource[propName]['values'].push(propValue['knora-api:decimalValueAsDecimal']['@value'])
+                        } else {
+                            resource[propName] = {
+                                values: [propValue['knora-api:decimalValueAsDecimal']['@value']],
+                                labels: changeLabels(onto['rdfs:label'])
+                            }
+                        }
+                    }
+                })
                 break;
             case 'knora-api:BooleanValue':
-                // TODO -> ['knora-api:booleanValueAsBoolean'] = true
+                // ['knora-api:booleanValueAsBoolean'] = true
+                ontology.forEach(onto => {
+                    if (onto['@id'] === propName) {
+                        if (resource[propName]) {
+                            resource[propName]['values'].push(propValue['knora-api:booleanValueAsBoolean'])
+                        } else {
+                            resource[propName] = {
+                                values: [propValue['knora-api:booleanValueAsBoolean']],
+                                labels: changeLabels(onto['rdfs:label'])
+                            }
+                        }
+                    }
+                })
                 break;
             case 'knora-api:ColorValue':
-                // TODO -> ['knora-api:colorValueAsColor'] = '#ff3333'
+                // ['knora-api:colorValueAsColor'] = '#ff3333'
+                ontology.forEach(onto => {
+                    if (onto['@id'] === propName) {
+                        if (resource[propName]) {
+                            resource[propName]['values'].push(propValue['knora-api:colorValueAsColor'])
+                        } else {
+                            resource[propName] = {
+                                values: [propValue['knora-api:colorValueAsColor']],
+                                labels: changeLabels(onto['rdfs:label'])
+                            }
+                        }
+                    }
+                })
                 break;
             case 'knora-api:TimeValue':
-                // TODO -> ['knora-api:timeValueAsTimeStamp']['@value'] = '2019-08-30T10:45:20.173572Z'
+                // ['knora-api:timeValueAsTimeStamp']['@value'] = '2019-08-30T10:45:20.173572Z'
+                ontology.forEach(onto => {
+                    if (onto['@id'] === propName) {
+                        if (resource[propName]) {
+                            resource[propName]['values'].push(propValue['knora-api:timeValueAsTimeStamp']['@value'])
+                        } else {
+                            resource[propName] = {
+                                values: [propValue['knora-api:timeValueAsTimeStamp']['@value']],
+                                labels: changeLabels(onto['rdfs:label'])
+                            }
+                        }
+                    }
+                })
                 break;
             case 'knora-api:UriValue':
-                // TODO -> ['knora-api:uriValueAsUri']['@value'] = 'http://www.google.ch'
+                // ['knora-api:uriValueAsUri']['@value'] = 'http://www.google.ch'
+                ontology.forEach(onto => {
+                    if (onto['@id'] === propName) {
+                        if (resource[propName]) {
+                            resource[propName]['values'].push(propValue['knora-api:uriValueAsUri']['@value'])
+                        } else {
+                            resource[propName] = {
+                                values: [propValue['knora-api:uriValueAsUri']['@value']],
+                                labels: changeLabels(onto['rdfs:label'])
+                            }
+                        }
+                    }
+                })
                 break;
             case 'knora-api:GeomValue':
                 // TODO -> ['knora-api:geometryValueAsGeometry'] = "{\"status\":\"active\",\"lineColor\":\"#ff3333\",\"lineWidth\":2,\"points\":[{\"x\":0.08098591549295775,\"y\":0.16741071428571427},{\"x\":0.7394366197183099,\"y\":0.7299107142857143}],\"type\":\"rectangle\",\"original_index\":0}"
                 break;
             case 'knora-api:GeonameValue':
-                // TODO -> ['knora-api:geonameValueAsGeonameCode'] = '2661604'
+                // ['knora-api:geonameValueAsGeonameCode'] = '2661604'
+                ontology.forEach(onto => {
+                    if (onto['@id'] === propName) {
+                        if (resource[propName]) {
+                            resource[propName]['values'].push(propValue['knora-api:geonameValueAsGeonameCode'])
+                        } else {
+                            resource[propName] = {
+                                values: [propValue['knora-api:geonameValueAsGeonameCode']],
+                                labels: changeLabels(onto['rdfs:label'])
+                            }
+                        }
+                    }
+                })
                 break;
             case 'knora-api:IntervalValue':
-                // TODO -> ['knora-api:intervalValueHasStart']['@value'] = '0'
-                // TODO -> ['knora-api:intervalValueHasEnd']['@value'] = '216000'
+                // ['knora-api:intervalValueHasStart']['@value'] = '0'
+                // ['knora-api:intervalValueHasEnd']['@value'] = '216000'
+                ontology.forEach(onto => {
+                    if (onto['@id'] === propName) {
+                        if (resource[propName]) {
+                            resource[propName]['values'].push(`${propValue['knora-api:intervalValueHasStart']['@value']}-${propValue['knora-api:intervalValueHasEnd']['@value']}`)
+                        } else {
+                            resource[propName] = {
+                                values: [`${propValue['knora-api:intervalValueHasStart']['@value']}-${propValue['knora-api:intervalValueHasEnd']['@value']}`],
+                                labels: changeLabels(onto['rdfs:label'])
+                            }
+                        }
+                    }
+                })
                 break;
             case 'knora-api:TextValue':
                 // Simple Text
@@ -402,6 +486,7 @@
                             <div class="prop-header">{value.labels ? value.labels['en']: 'Property'}</div>
                             <div>
                                 {#each value.values as val}
+                                    <div>{@html 2}</div>
                                     <div>{@html val}</div>
                                 {/each}
                             </div>

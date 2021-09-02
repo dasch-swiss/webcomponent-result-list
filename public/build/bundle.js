@@ -688,7 +688,7 @@
     	return child_ctx;
     }
 
-    // (415:4) {:catch error}
+    // (500:4) {:catch error}
     function create_catch_block_1(ctx) {
     	let div3;
     	let div0;
@@ -713,14 +713,14 @@
     			button = element("button");
     			button.textContent = "Try again";
     			attr_dev(div0, "class", "error-header");
-    			add_location(div0, file, 416, 12, 14719);
+    			add_location(div0, file, 501, 12, 19061);
     			attr_dev(div1, "class", "error-text");
-    			add_location(div1, file, 417, 12, 14784);
-    			add_location(button, file, 419, 16, 14938);
+    			add_location(div1, file, 502, 12, 19126);
+    			add_location(button, file, 504, 16, 19280);
     			attr_dev(div2, "class", "error-btn-container");
-    			add_location(div2, file, 418, 12, 14888);
+    			add_location(div2, file, 503, 12, 19230);
     			attr_dev(div3, "class", "error");
-    			add_location(div3, file, 415, 8, 14687);
+    			add_location(div3, file, 500, 8, 19029);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div3, anchor);
@@ -748,14 +748,14 @@
     		block,
     		id: create_catch_block_1.name,
     		type: "catch",
-    		source: "(415:4) {:catch error}",
+    		source: "(500:4) {:catch error}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (383:4) {:then data}
+    // (467:4) {:then data}
     function create_then_block(ctx) {
     	let if_block_anchor;
     	let if_block = /*search_data_fetched*/ ctx[2] && create_if_block(ctx);
@@ -793,14 +793,14 @@
     		block,
     		id: create_then_block.name,
     		type: "then",
-    		source: "(383:4) {:then data}",
+    		source: "(467:4) {:then data}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (385:8) {#if search_data_fetched}
+    // (469:8) {#if search_data_fetched}
     function create_if_block(ctx) {
     	let show_if;
     	let if_block_anchor;
@@ -846,14 +846,14 @@
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(385:8) {#if search_data_fetched}",
+    		source: "(469:8) {#if search_data_fetched}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (388:12) {:else}
+    // (472:12) {:else}
     function create_else_block(ctx) {
     	let button0;
     	let t0;
@@ -905,9 +905,9 @@
 
     			each_1_anchor = empty();
     			button0.disabled = /*preventPrevious*/ ctx[7]();
-    			add_location(button0, file, 390, 16, 13691);
+    			add_location(button0, file, 474, 16, 17976);
     			button1.disabled = button1_disabled_value = preventNext(/*data*/ ctx[22]);
-    			add_location(button1, file, 391, 16, 13786);
+    			add_location(button1, file, 475, 16, 18071);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button0, anchor);
@@ -993,14 +993,14 @@
     		block,
     		id: create_else_block.name,
     		type: "else",
-    		source: "(388:12) {:else}",
+    		source: "(472:12) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (386:12) {#if isEmpty(data)}
+    // (470:12) {#if isEmpty(data)}
     function create_if_block_1(ctx) {
     	let t;
 
@@ -1021,7 +1021,7 @@
     		block,
     		id: create_if_block_1.name,
     		type: "if",
-    		source: "(386:12) {#if isEmpty(data)}",
+    		source: "(470:12) {#if isEmpty(data)}",
     		ctx
     	});
 
@@ -1043,7 +1043,7 @@
     	return block;
     }
 
-    // (395:48)                      {getAmountRange(data)}
+    // (479:48)                      {getAmountRange(data)}
     function create_then_block_1(ctx) {
     	let t0_value = /*getAmountRange*/ ctx[8](/*data*/ ctx[22]) + "";
     	let t0;
@@ -1077,7 +1077,7 @@
     		block,
     		id: create_then_block_1.name,
     		type: "then",
-    		source: "(395:48)                      {getAmountRange(data)}",
+    		source: "(479:48)                      {getAmountRange(data)}",
     		ctx
     	});
 
@@ -1099,24 +1099,35 @@
     	return block;
     }
 
-    // (404:32) {#each value.values as val}
+    // (488:32) {#each value.values as val}
     function create_each_block_2(ctx) {
-    	let div;
-    	let raw_value = /*val*/ ctx[30] + "";
+    	let div0;
+    	let raw0_value = 2 + "";
+    	let t;
+    	let div1;
+    	let raw1_value = /*val*/ ctx[30] + "";
 
     	const block = {
     		c: function create() {
-    			div = element("div");
-    			add_location(div, file, 404, 36, 14441);
+    			div0 = element("div");
+    			t = space();
+    			div1 = element("div");
+    			add_location(div0, file, 488, 36, 18726);
+    			add_location(div1, file, 489, 36, 18783);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div, anchor);
-    			div.innerHTML = raw_value;
+    			insert_dev(target, div0, anchor);
+    			div0.innerHTML = raw0_value;
+    			insert_dev(target, t, anchor);
+    			insert_dev(target, div1, anchor);
+    			div1.innerHTML = raw1_value;
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*resources*/ 8 && raw_value !== (raw_value = /*val*/ ctx[30] + "")) div.innerHTML = raw_value;		},
+    			if (dirty[0] & /*resources*/ 8 && raw1_value !== (raw1_value = /*val*/ ctx[30] + "")) div1.innerHTML = raw1_value;		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div);
+    			if (detaching) detach_dev(div0);
+    			if (detaching) detach_dev(t);
+    			if (detaching) detach_dev(div1);
     		}
     	};
 
@@ -1124,14 +1135,14 @@
     		block,
     		id: create_each_block_2.name,
     		type: "each",
-    		source: "(404:32) {#each value.values as val}",
+    		source: "(488:32) {#each value.values as val}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (401:24) {#each Object.entries(resource) as [key, value]}
+    // (485:24) {#each Object.entries(resource) as [key, value]}
     function create_each_block_1(ctx) {
     	let div0;
 
@@ -1162,8 +1173,8 @@
     			}
 
     			attr_dev(div0, "class", "prop-header");
-    			add_location(div0, file, 401, 28, 14232);
-    			add_location(div1, file, 402, 28, 14339);
+    			add_location(div0, file, 485, 28, 18517);
+    			add_location(div1, file, 486, 28, 18624);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div0, anchor);
@@ -1216,14 +1227,14 @@
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(401:24) {#each Object.entries(resource) as [key, value]}",
+    		source: "(485:24) {#each Object.entries(resource) as [key, value]}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (399:16) {#each resources as resource}
+    // (483:16) {#each resources as resource}
     function create_each_block(ctx) {
     	let section;
     	let t;
@@ -1244,7 +1255,7 @@
     			}
 
     			t = space();
-    			add_location(section, file, 399, 20, 14121);
+    			add_location(section, file, 483, 20, 18406);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, section, anchor);
@@ -1290,14 +1301,14 @@
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(399:16) {#each resources as resource}",
+    		source: "(483:16) {#each resources as resource}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (381:25)          <div>...loading data</div>     {:then data}
+    // (465:25)          <div>...loading data</div>     {:then data}
     function create_pending_block(ctx) {
     	let div;
 
@@ -1305,7 +1316,7 @@
     		c: function create() {
     			div = element("div");
     			div.textContent = "...loading data";
-    			add_location(div, file, 381, 8, 13468);
+    			add_location(div, file, 465, 8, 17753);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -1320,7 +1331,7 @@
     		block,
     		id: create_pending_block.name,
     		type: "pending",
-    		source: "(381:25)          <div>...loading data</div>     {:then data}",
+    		source: "(465:25)          <div>...loading data</div>     {:then data}",
     		ctx
     	});
 
@@ -1351,7 +1362,7 @@
     			info.block.c();
     			this.c = noop;
     			attr_dev(div, "class", "container");
-    			add_location(div, file, 379, 0, 13410);
+    			add_location(div, file, 463, 0, 17695);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1585,29 +1596,115 @@
     	async function saveProp(propName, propValue, resource) {
     		switch (propValue['@type']) {
     			case 'knora-api:DecimalValue':
-    				// TODO -> ['knora-api:decimalValueAsDecimal']['@value'] = '1.5'
+    				// ['knora-api:decimalValueAsDecimal']['@value'] = '1.5'
+    				ontology.forEach(onto => {
+    					if (onto['@id'] === propName) {
+    						if (resource[propName]) {
+    							resource[propName]['values'].push(propValue['knora-api:decimalValueAsDecimal']['@value']);
+    						} else {
+    							resource[propName] = {
+    								values: [propValue['knora-api:decimalValueAsDecimal']['@value']],
+    								labels: changeLabels(onto['rdfs:label'])
+    							};
+    						}
+    					}
+    				});
     				break;
     			case 'knora-api:BooleanValue':
-    				// TODO -> ['knora-api:booleanValueAsBoolean'] = true
+    				// ['knora-api:booleanValueAsBoolean'] = true
+    				ontology.forEach(onto => {
+    					if (onto['@id'] === propName) {
+    						if (resource[propName]) {
+    							resource[propName]['values'].push(propValue['knora-api:booleanValueAsBoolean']);
+    						} else {
+    							resource[propName] = {
+    								values: [propValue['knora-api:booleanValueAsBoolean']],
+    								labels: changeLabels(onto['rdfs:label'])
+    							};
+    						}
+    					}
+    				});
     				break;
     			case 'knora-api:ColorValue':
-    				// TODO -> ['knora-api:colorValueAsColor'] = '#ff3333'
+    				// ['knora-api:colorValueAsColor'] = '#ff3333'
+    				ontology.forEach(onto => {
+    					if (onto['@id'] === propName) {
+    						if (resource[propName]) {
+    							resource[propName]['values'].push(propValue['knora-api:colorValueAsColor']);
+    						} else {
+    							resource[propName] = {
+    								values: [propValue['knora-api:colorValueAsColor']],
+    								labels: changeLabels(onto['rdfs:label'])
+    							};
+    						}
+    					}
+    				});
     				break;
     			case 'knora-api:TimeValue':
-    				// TODO -> ['knora-api:timeValueAsTimeStamp']['@value'] = '2019-08-30T10:45:20.173572Z'
+    				// ['knora-api:timeValueAsTimeStamp']['@value'] = '2019-08-30T10:45:20.173572Z'
+    				ontology.forEach(onto => {
+    					if (onto['@id'] === propName) {
+    						if (resource[propName]) {
+    							resource[propName]['values'].push(propValue['knora-api:timeValueAsTimeStamp']['@value']);
+    						} else {
+    							resource[propName] = {
+    								values: [propValue['knora-api:timeValueAsTimeStamp']['@value']],
+    								labels: changeLabels(onto['rdfs:label'])
+    							};
+    						}
+    					}
+    				});
     				break;
     			case 'knora-api:UriValue':
-    				// TODO -> ['knora-api:uriValueAsUri']['@value'] = 'http://www.google.ch'
+    				// ['knora-api:uriValueAsUri']['@value'] = 'http://www.google.ch'
+    				ontology.forEach(onto => {
+    					if (onto['@id'] === propName) {
+    						if (resource[propName]) {
+    							resource[propName]['values'].push(propValue['knora-api:uriValueAsUri']['@value']);
+    						} else {
+    							resource[propName] = {
+    								values: [propValue['knora-api:uriValueAsUri']['@value']],
+    								labels: changeLabels(onto['rdfs:label'])
+    							};
+    						}
+    					}
+    				});
     				break;
     			case 'knora-api:GeomValue':
     				// TODO -> ['knora-api:geometryValueAsGeometry'] = "{\"status\":\"active\",\"lineColor\":\"#ff3333\",\"lineWidth\":2,\"points\":[{\"x\":0.08098591549295775,\"y\":0.16741071428571427},{\"x\":0.7394366197183099,\"y\":0.7299107142857143}],\"type\":\"rectangle\",\"original_index\":0}"
     				break;
     			case 'knora-api:GeonameValue':
-    				// TODO -> ['knora-api:geonameValueAsGeonameCode'] = '2661604'
+    				// ['knora-api:geonameValueAsGeonameCode'] = '2661604'
+    				ontology.forEach(onto => {
+    					if (onto['@id'] === propName) {
+    						if (resource[propName]) {
+    							resource[propName]['values'].push(propValue['knora-api:geonameValueAsGeonameCode']);
+    						} else {
+    							resource[propName] = {
+    								values: [propValue['knora-api:geonameValueAsGeonameCode']],
+    								labels: changeLabels(onto['rdfs:label'])
+    							};
+    						}
+    					}
+    				});
     				break;
     			case 'knora-api:IntervalValue':
-    				// TODO -> ['knora-api:intervalValueHasStart']['@value'] = '0'
-    				// TODO -> ['knora-api:intervalValueHasEnd']['@value'] = '216000'
+    				// ['knora-api:intervalValueHasStart']['@value'] = '0'
+    				// ['knora-api:intervalValueHasEnd']['@value'] = '216000'
+    				ontology.forEach(onto => {
+    					if (onto['@id'] === propName) {
+    						if (resource[propName]) {
+    							resource[propName]['values'].push(`${propValue['knora-api:intervalValueHasStart']['@value']}-${propValue['knora-api:intervalValueHasEnd']['@value']}`);
+    						} else {
+    							resource[propName] = {
+    								values: [
+    									`${propValue['knora-api:intervalValueHasStart']['@value']}-${propValue['knora-api:intervalValueHasEnd']['@value']}`
+    								],
+    								labels: changeLabels(onto['rdfs:label'])
+    							};
+    						}
+    					}
+    				});
     				break;
     			case 'knora-api:TextValue':
     				// Simple Text
