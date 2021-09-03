@@ -688,7 +688,7 @@
     	return child_ctx;
     }
 
-    // (500:4) {:catch error}
+    // (497:4) {:catch error}
     function create_catch_block_1(ctx) {
     	let div3;
     	let div0;
@@ -713,14 +713,14 @@
     			button = element("button");
     			button.textContent = "Try again";
     			attr_dev(div0, "class", "error-header");
-    			add_location(div0, file, 501, 12, 19061);
+    			add_location(div0, file, 498, 12, 18923);
     			attr_dev(div1, "class", "error-text");
-    			add_location(div1, file, 502, 12, 19126);
-    			add_location(button, file, 504, 16, 19280);
+    			add_location(div1, file, 499, 12, 18988);
+    			add_location(button, file, 501, 16, 19142);
     			attr_dev(div2, "class", "error-btn-container");
-    			add_location(div2, file, 503, 12, 19230);
+    			add_location(div2, file, 500, 12, 19092);
     			attr_dev(div3, "class", "error");
-    			add_location(div3, file, 500, 8, 19029);
+    			add_location(div3, file, 497, 8, 18891);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div3, anchor);
@@ -748,14 +748,14 @@
     		block,
     		id: create_catch_block_1.name,
     		type: "catch",
-    		source: "(500:4) {:catch error}",
+    		source: "(497:4) {:catch error}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (467:4) {:then data}
+    // (465:4) {:then data}
     function create_then_block(ctx) {
     	let if_block_anchor;
     	let if_block = /*search_data_fetched*/ ctx[2] && create_if_block(ctx);
@@ -793,14 +793,14 @@
     		block,
     		id: create_then_block.name,
     		type: "then",
-    		source: "(467:4) {:then data}",
+    		source: "(465:4) {:then data}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (469:8) {#if search_data_fetched}
+    // (467:8) {#if search_data_fetched}
     function create_if_block(ctx) {
     	let show_if;
     	let if_block_anchor;
@@ -846,14 +846,14 @@
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(469:8) {#if search_data_fetched}",
+    		source: "(467:8) {#if search_data_fetched}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (472:12) {:else}
+    // (470:12) {:else}
     function create_else_block(ctx) {
     	let button0;
     	let t0;
@@ -905,9 +905,9 @@
 
     			each_1_anchor = empty();
     			button0.disabled = /*preventPrevious*/ ctx[7]();
-    			add_location(button0, file, 474, 16, 17976);
+    			add_location(button0, file, 472, 16, 17895);
     			button1.disabled = button1_disabled_value = preventNext(/*data*/ ctx[22]);
-    			add_location(button1, file, 475, 16, 18071);
+    			add_location(button1, file, 473, 16, 17990);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button0, anchor);
@@ -993,14 +993,14 @@
     		block,
     		id: create_else_block.name,
     		type: "else",
-    		source: "(472:12) {:else}",
+    		source: "(470:12) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (470:12) {#if isEmpty(data)}
+    // (468:12) {#if isEmpty(data)}
     function create_if_block_1(ctx) {
     	let t;
 
@@ -1021,7 +1021,7 @@
     		block,
     		id: create_if_block_1.name,
     		type: "if",
-    		source: "(470:12) {#if isEmpty(data)}",
+    		source: "(468:12) {#if isEmpty(data)}",
     		ctx
     	});
 
@@ -1043,7 +1043,7 @@
     	return block;
     }
 
-    // (479:48)                      {getAmountRange(data)}
+    // (477:48)                      {getAmountRange(data)}
     function create_then_block_1(ctx) {
     	let t0_value = /*getAmountRange*/ ctx[8](/*data*/ ctx[22]) + "";
     	let t0;
@@ -1077,7 +1077,7 @@
     		block,
     		id: create_then_block_1.name,
     		type: "then",
-    		source: "(479:48)                      {getAmountRange(data)}",
+    		source: "(477:48)                      {getAmountRange(data)}",
     		ctx
     	});
 
@@ -1099,35 +1099,24 @@
     	return block;
     }
 
-    // (488:32) {#each value.values as val}
+    // (486:32) {#each value.values as val}
     function create_each_block_2(ctx) {
-    	let div0;
-    	let raw0_value = 2 + "";
-    	let t;
-    	let div1;
-    	let raw1_value = /*val*/ ctx[30] + "";
+    	let div;
+    	let raw_value = /*val*/ ctx[30] + "";
 
     	const block = {
     		c: function create() {
-    			div0 = element("div");
-    			t = space();
-    			div1 = element("div");
-    			add_location(div0, file, 488, 36, 18726);
-    			add_location(div1, file, 489, 36, 18783);
+    			div = element("div");
+    			add_location(div, file, 486, 36, 18645);
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div0, anchor);
-    			div0.innerHTML = raw0_value;
-    			insert_dev(target, t, anchor);
-    			insert_dev(target, div1, anchor);
-    			div1.innerHTML = raw1_value;
+    			insert_dev(target, div, anchor);
+    			div.innerHTML = raw_value;
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty[0] & /*resources*/ 8 && raw1_value !== (raw1_value = /*val*/ ctx[30] + "")) div1.innerHTML = raw1_value;		},
+    			if (dirty[0] & /*resources*/ 8 && raw_value !== (raw_value = /*val*/ ctx[30] + "")) div.innerHTML = raw_value;		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div0);
-    			if (detaching) detach_dev(t);
-    			if (detaching) detach_dev(div1);
+    			if (detaching) detach_dev(div);
     		}
     	};
 
@@ -1135,14 +1124,14 @@
     		block,
     		id: create_each_block_2.name,
     		type: "each",
-    		source: "(488:32) {#each value.values as val}",
+    		source: "(486:32) {#each value.values as val}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (485:24) {#each Object.entries(resource) as [key, value]}
+    // (483:24) {#each Object.entries(resource) as [key, value]}
     function create_each_block_1(ctx) {
     	let div0;
 
@@ -1173,8 +1162,8 @@
     			}
 
     			attr_dev(div0, "class", "prop-header");
-    			add_location(div0, file, 485, 28, 18517);
-    			add_location(div1, file, 486, 28, 18624);
+    			add_location(div0, file, 483, 28, 18436);
+    			add_location(div1, file, 484, 28, 18543);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div0, anchor);
@@ -1227,14 +1216,14 @@
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(485:24) {#each Object.entries(resource) as [key, value]}",
+    		source: "(483:24) {#each Object.entries(resource) as [key, value]}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (483:16) {#each resources as resource}
+    // (481:16) {#each resources as resource}
     function create_each_block(ctx) {
     	let section;
     	let t;
@@ -1255,7 +1244,7 @@
     			}
 
     			t = space();
-    			add_location(section, file, 483, 20, 18406);
+    			add_location(section, file, 481, 20, 18325);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, section, anchor);
@@ -1301,14 +1290,14 @@
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(483:16) {#each resources as resource}",
+    		source: "(481:16) {#each resources as resource}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (465:25)          <div>...loading data</div>     {:then data}
+    // (463:25)          <div>...loading data</div>     {:then data}
     function create_pending_block(ctx) {
     	let div;
 
@@ -1316,7 +1305,7 @@
     		c: function create() {
     			div = element("div");
     			div.textContent = "...loading data";
-    			add_location(div, file, 465, 8, 17753);
+    			add_location(div, file, 463, 8, 17672);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -1331,7 +1320,7 @@
     		block,
     		id: create_pending_block.name,
     		type: "pending",
-    		source: "(465:25)          <div>...loading data</div>     {:then data}",
+    		source: "(463:25)          <div>...loading data</div>     {:then data}",
     		ctx
     	});
 
@@ -1362,7 +1351,7 @@
     			info.block.c();
     			this.c = noop;
     			attr_dev(div, "class", "container");
-    			add_location(div, file, 463, 0, 17695);
+    			add_location(div, file, 461, 0, 17614);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1521,7 +1510,6 @@
     				token = d1;
     				lists = d2;
     				ontology = d3;
-    				console.log(d1, d2, d3);
     				getData(d4);
     				$$invalidate(1, promise_amount = gravSearchRequestCount(request_infos));
     				$$invalidate(2, search_data_fetched = true);
@@ -1581,7 +1569,6 @@
     			}
 
     			$$invalidate(3, resources = [...resources, resource]);
-    			console.log(resources);
     		}
     	}
 

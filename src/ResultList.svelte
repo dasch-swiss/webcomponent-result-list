@@ -75,7 +75,6 @@
                     token = d1;
                     lists = d2;
                     ontology = d3;
-                    console.log(d1, d2, d3);
                     getData(d4);
                     promise_amount = gravSearchRequestCount(request_infos);
                     search_data_fetched = true;
@@ -136,7 +135,6 @@
             }
 
             resources = [...resources, resource];
-            console.log(resources);
         }
     }
 
@@ -486,7 +484,6 @@
                             <div class="prop-header">{value.labels ? value.labels['en']: 'Property'}</div>
                             <div>
                                 {#each value.values as val}
-                                    <div>{@html 2}</div>
                                     <div>{@html val}</div>
                                 {/each}
                             </div>
