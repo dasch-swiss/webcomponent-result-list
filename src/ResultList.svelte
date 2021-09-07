@@ -28,7 +28,7 @@
 	let promise_data, promise_amount, promise_all_results;
 
     /**
-     * Offset for the gravsearch query. Defaul is set to 0
+     * Offset for the gravsearch query. Default is set to 0.
      * @type {number}
      */
     let current_offset = 0;
