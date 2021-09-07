@@ -10,11 +10,17 @@
         getResByIri,
         getListNode
     } from "./Services/dsp-services";
+    import {Image} from "./model";
 
     /**
      * Object assigned from outside the web component. Contains all the necessary details for doing the requests.
      */
     export let request_infos;
+
+    /**
+     * Stores the info what should be displayed. Value can be 'properties' or 'images'.
+     */
+    let display = "";
 
     /**
      * Promises objects
@@ -34,6 +40,18 @@
     const result_per_request = 25;
 
     /**
+     * Size of image in pixels that will be shown if display is set to 'images'.
+     * @type {number}
+     */
+    const square_size = 150;
+
+    /**
+     * Size of image in pixels that will be shown if display is set to 'properties'.
+     * @type {number}
+     */
+    const image_size = 700;
+
+    /**
      * Token, lists and ontology of a project.
      */
     let token, lists, ontology;
@@ -45,10 +63,22 @@
     let search_data_fetched = false;
 
     /**
+     * Flag to be set if display is set to 'images' and there is no images property in the resource.
+     * @type {boolean}
+     */
+    let invalid_images = false;
+
+    /**
      * Array containing the resources that will be displayed in the template.
      * @type {*[]}
      */
     let resources = [];
+
+    /**
+     * Array containing the images that will be displayed in the template.
+     * @type {*[]}
+     */
+    let images = [];
 
     /**
      * Observing the input variables and starting the initialization.
@@ -64,7 +94,8 @@
 
         if (inputIsValid()) {
             current_offset = 0;
-
+            display = getDisplayInfo();
+            // Set up all requests
             const p1 = login(request_infos);
             const p2 = getList(request_infos).then(l => l.lists);
             const p3 = getOntology(request_infos);
@@ -75,9 +106,21 @@
                     token = d1;
                     lists = d2;
                     ontology = d3;
-                    getData(d4);
-                    promise_amount = gravSearchRequestCount(request_infos);
-                    search_data_fetched = true;
+
+                    if (display === 'images') {
+                        if (hasValidImages(d4)) {
+                            images = addImages(wrapData(d4));
+                            promise_amount = gravSearchRequestCount(request_infos);
+                            search_data_fetched = true;
+                        } else {
+                            invalid_images = true;
+                        }
+                    } else {
+                        getData(d4);
+                        promise_amount = gravSearchRequestCount(request_infos);
+                        search_data_fetched = true;
+                    }
+
                     return d4;
                 });
 
@@ -88,19 +131,32 @@
 
     /**
      * Starts the gravsearch request and assigns to a promise.
+     *
      * @param offset
      */
     function startSearchRequest(offset) {
         promise_data = gravSearchRequest(offset, request_infos)
             .then((data) => {
-                getData(data);
-                search_data_fetched = true;
+
+                if (display === 'images') {
+                    if (hasValidImages(data)) {
+                        images = addImages(wrapData(data));
+                        search_data_fetched = true;
+                    } else {
+                        invalid_images = true;
+                    }
+                } else {
+                    getData(data);
+                    search_data_fetched = true;
+                }
+
                 return data;
             });
     }
 
     /**
      * Requests the data by looping through all the resources and initializes the requests for its properties.
+     *
      * @param data
      * @returns {Promise<void>}
      */
@@ -132,6 +188,14 @@
                         await saveProp(correctedKey, value, resource);
                     }
                 }
+            }
+
+            // Adding the still image information
+            if (resData.hasOwnProperty('knora-api:hasStillImageFileValue')) {
+                resource['knora-api:hasStillImageFileValue'] = {
+                    labels: {'en': 'Still image', 'de': 'Bild'},
+                    values: convertImageObj(resData)
+                };
             }
 
             resources = [...resources, resource];
@@ -379,12 +443,99 @@
         }
     }
 
+    /**
+     * Checks if request_infos object has the necessary properties for executing the request.
+     *
+     * @returns {boolean}
+     */
     function inputIsValid() {
         return request_infos.hasOwnProperty("ontologyIri") &&
             request_infos.hasOwnProperty("server") &&
             request_infos.hasOwnProperty("shortCode") &&
             request_infos.hasOwnProperty("method") &&
             request_infos.hasOwnProperty("url");
+    }
+
+    /**
+     * Getting the display info from input object.
+     *
+     * @returns {*|string}
+     */
+    function getDisplayInfo() {
+        return request_infos['display'] && (request_infos['display'] === 'properties' || request_infos['display'] === 'images') ? request_infos['display'] : "properties";
+    }
+
+    /**
+     * Checks if the data has hasStillImageFileValue property, so the images passed to the child component and
+     * can be displayed in the end.
+     *
+     * @param data
+     * @returns {boolean}
+     */
+    function hasValidImages(data) {
+        if (data.hasOwnProperty('@graph') && Array.isArray(data['@graph'])) {
+            return data['@graph'].every(obj => obj['knora-api:hasStillImageFileValue']);
+        } else {
+            return data.hasOwnProperty('knora-api:hasStillImageFileValue');
+        }
+    }
+
+    /**
+     * Converts every element from the results into a image object and is added to an array.
+     *
+     * @param images
+     * @returns {Image[]}
+     */
+    function addImages(images) {
+        return [...images.map(image => convertImageObj(image))];
+    }
+
+    /**
+     * Converts a object from result into an image object.
+     *
+     * @param image
+     * @returns {Image}
+     */
+    function convertImageObj(image) {
+        const url = `${image['knora-api:hasStillImageFileValue']['knora-api:stillImageFileValueHasIIIFBaseUrl']['@value']}/${image['knora-api:hasStillImageFileValue']['knora-api:fileValueHasFilename']}`;
+
+        return new Image(
+            image['@id'],
+            url,
+            image['knora-api:hasStillImageFileValue']['knora-api:stillImageFileValueHasDimX'],
+            image['knora-api:hasStillImageFileValue']['knora-api:stillImageFileValueHasDimY']);
+    }
+
+    /**
+     * Builds the iiif url with square image and a custom size.
+     *
+     * @param url
+     * @param size
+     * @returns {string}
+     */
+    function getIIIfSquareURL(url, size) {
+        return `${url}/square/${size},/0/default.jpg`;
+    }
+
+    /**
+     * Builds the iiif url with full image and a custom size.
+     *
+     * @param url
+     * @param size
+     * @returns {string}
+     */
+    function getIIIfFullURL(url, size) {
+        return `${url}/full/${size},/0/default.jpg`;
+    }
+
+    /**
+     * ???
+     *
+     * @param img
+     */
+    function openImageOverlay(img) {
+        console.log('Clicked on image', getIIIfFullURL(img['url'], image_size));
+        // TODO Find a solution to show the image in full size.
     }
 
     /**
@@ -478,20 +629,52 @@
                     {getAmountRange(data)} of {bla['schema:numberOfItems']}
                 {/await}
 
-                {#each resources as resource}
-                    <section>
-                        {#each Object.entries(resource) as [key, value]}
-                            <div class="prop-header">{value.labels ? value.labels['en']: 'Property'}</div>
-                            <div>
-                                {#each value.values as val}
-                                    <div>{@html val}</div>
+                <!-- Check what resource will show -->
+                {#if display === "images"}
+                    <!-- Show images -->
+                    <section class="img-section">
+                        {#if images.length > 0}
+                            <div class="images-container" style="--size: {square_size}px">
+                                {#each images as img, i}
+                                    <img on:click={() => openImageOverlay(img)}
+                                         class="small-image"
+                                         src="{getIIIfSquareURL(img['url'], square_size)}"
+                                         alt="result image number {i + 1}">
                                 {/each}
                             </div>
-                        {/each}
+                        {:else }
+                            <div>No Results</div>
+                        {/if}
                     </section>
-                {/each}
+                {:else if display === "properties"}
+                    <!-- Show properties -->
+                    {#each resources as resource}
+                        <section class="res-section">
+                            {#if resource.hasOwnProperty('knora-api:hasStillImageFileValue')}
+                                <div></div>
+                                <div><img src="{getIIIfFullURL(resource['knora-api:hasStillImageFileValue']['values']['url'], square_size)}"></div>
+                            {/if}
+
+                            {#each Object.entries(resource) as [key, value]}
+                                {#if key !== 'knora-api:hasStillImageFileValue'}
+                                    <div class="prop-header">{value.labels ? value.labels['en']: 'Property'}</div>
+                                    <div>
+                                        {#each value.values as val}
+                                            <div>{@html val}</div>
+                                        {/each}
+                                    </div>
+                                {/if}
+                            {/each}
+                        </section>
+                    {/each}
+                {/if}
+
 
             {/if}
+        {/if}
+
+        {#if invalid_images}
+            No invalid images
         {/if}
 
     {:catch error}
@@ -512,7 +695,7 @@
         padding: 1rem;
     }
 
-    section {
+    .res-section {
         margin: 1rem 0;
         padding: 1.5rem;
         display: grid;
@@ -523,7 +706,7 @@
     }
 
     @media (max-width: 600px) {
-        section {
+        .res-section {
             grid-template-columns: 1fr;
             gap: 0.5rem;
         }
@@ -550,5 +733,30 @@
         margin: 0.5rem;
         background-color: dodgerblue;
         color: white;
+    }
+
+    .img-section {
+        margin: 1rem 0;
+    }
+
+    .images-container {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        display: grid;
+        justify-content: center;
+        /*grid-template-columns: repeat(auto-fill, minmax(150px, 150px));*/
+        grid-template-columns: repeat(auto-fill, minmax(var(--size), var(--size)));
+        gap: 1rem;
+    }
+
+    .small-image {
+        opacity: 1;
+        -webkit-transition: .3s ease-in-out;
+        transition: .3s ease-in-out;
+    }
+
+    .small-image:hover {
+        opacity: .5;
+        cursor: pointer;
     }
 </style>

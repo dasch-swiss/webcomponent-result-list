@@ -18,17 +18,36 @@ tdk_gs_1 = "PREFIX knora-api: <http://api.knora.org/ontology/knora-api/v2#>\n" +
     "?mainres knora-api:hasStillImageFileValue ?imgfile .\n" +
     "}\n";
 
+tdk_gs_2 = "PREFIX knora-api: <http://api.knora.org/ontology/knora-api/v2#>\n" +
+    "PREFIX tdk: <http://api.0805-test-server.dasch.swiss/ontology/0805/tdk_onto/v2#>\n" +
+    "PREFIX knora-api-simple: <http://api.knora.org/ontology/knora-api/simple/v2#>\n" +
+    "CONSTRUCT {\n" +
+    "?mainres knora-api:isMainResource true .\n" +
+    "?mainres tdk:bildSMFund ?bildSMFund .\n" +
+    "?bildSMFund tdk:smNr ?smNr .\n" +
+    "?mainres knora-api:hasStillImageFileValue ?imgfile .\n" +
+    "} WHERE {\n" +
+    "?mainres a knora-api:Resource .\n" +
+    "?mainres a tdk:Bild .\n" +
+    "?mainres tdk:bildSMFund ?bildSMFund .\n" +
+    "?bildSMFund tdk:smNr ?smNr .\n" +
+    "?smNr knora-api:valueAsString ?smNrStr .\n" +
+    "FILTER regex(?smNrStr, \"40C\", \"i\") .\n" +
+    "?mainres knora-api:hasStillImageFileValue ?imgfile .\n" +
+    "}\n";
+
 tdk_info = {
     ontologyIri : "tdk_onto",
     server : "api.0805-test-server.dasch.swiss",
     shortCode : "0805",
     method: "POST",
     url: 'https://api.0805-test-server.dasch.swiss/v2/searchextended',
-    gravSearch: tdk_gs_1,
+    gravSearch: tdk_gs_2,
     user: {
         email: "tdk0805import@example.com",
         pwd: "test"
-    }
+    },
+    display: "properties"
 }
 
 ww_gs_1 = "PREFIX knora-api: <http://api.knora.org/ontology/knora-api/v2#>\n" +
@@ -76,7 +95,8 @@ wordweb_info = {
     user: {
         email: "root@example.com",
         pwd: "test"
-    }
+    },
+    display: "properties"
 }
 
 pou_gs_1 = "PREFIX knora-api: <http://api.knora.org/ontology/knora-api/v2#>\n" +
@@ -135,7 +155,8 @@ pou_info = {
     user: {
         email: "pou0827import@example.com",
         pwd: "test"
-    }
+    },
+    display: "properties"
 }
 
-result.request_infos = pou_info;
+result.request_infos = tdk_info;
