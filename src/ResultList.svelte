@@ -5,8 +5,8 @@
         login,
         getList,
         getOntology,
-        gravSearchRequest,
-        gravSearchRequestCount,
+        searchRequest,
+        searchRequestCount,
         getResByIri,
         getListNode
     } from "./Services/dsp-services";
@@ -31,7 +31,7 @@
      * Offset for the gravsearch query. Default is set to 0.
      * @type {number}
      */
-    let current_offset = 0;
+    export let current_offset = 0;
 
     /**
      * Amount of maximum results of a gravsearch request answer.
@@ -99,7 +99,7 @@
             const p1 = login(request_infos);
             const p2 = getList(request_infos).then(l => l.lists);
             const p3 = getOntology(request_infos);
-            const p4 = gravSearchRequest(current_offset, request_infos);
+            const p4 = searchRequest(current_offset, request_infos);
 
             promise_data = Promise.all([p1, p2, p3, p4])
                 .then(([d1, d2, d3, d4]) => {
@@ -110,14 +110,14 @@
                     if (display === 'images') {
                         if (hasValidImages(d4)) {
                             images = addImages(wrapData(d4));
-                            promise_amount = gravSearchRequestCount(request_infos);
+                            promise_amount = searchRequestCount(request_infos);
                             search_data_fetched = true;
                         } else {
                             invalid_images = true;
                         }
                     } else {
                         getData(d4);
-                        promise_amount = gravSearchRequestCount(request_infos);
+                        promise_amount = searchRequestCount(request_infos);
                         search_data_fetched = true;
                     }
 
@@ -135,7 +135,7 @@
      * @param offset
      */
     function startSearchRequest(offset) {
-        promise_data = gravSearchRequest(offset, request_infos)
+        promise_data = searchRequest(offset, request_infos)
             .then((data) => {
 
                 if (display === 'images') {
