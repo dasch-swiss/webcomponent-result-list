@@ -105,6 +105,7 @@ wordweb_info = {
     shortCode : "0826",
     method: "POST",
     url: 'https://api.0826-test-server.dasch.swiss/v2/searchextended',
+    requestType: 'gravsearch',
     gravSearch: ww_gs_2,
     user: {
         email: "root@example.com",

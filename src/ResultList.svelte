@@ -31,7 +31,7 @@
      * Offset for the gravsearch query. Default is set to 0.
      * @type {number}
      */
-    export let current_offset = 0;
+    let current_offset = 0;
 
     /**
      * Amount of maximum results of a gravsearch request answer.
