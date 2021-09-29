@@ -42,6 +42,7 @@ tdk_info = {
     shortCode : "0805",
     method: "POST",
     url: 'https://api.0805-test-server.dasch.swiss/v2/searchextended',
+    requestType: "gravsearch",
     gravSearch: tdk_gs_2,
     user: {
         email: "tdk0805import@example.com",
@@ -50,6 +51,19 @@ tdk_info = {
     display: "properties"
 }
 
+fulltext_info = {
+    ontologyIri : "tdk_onto",
+    server : "api.0805-test-server.dasch.swiss",
+    shortCode : "0805",
+    method: "GET",
+    url: 'https://api.0805-test-server.dasch.swiss/v2/search/40C',
+    requestType: "fulltext",
+    user: {
+        email: "tdk0805import@example.com",
+        pwd: "test"
+    },
+    display: "properties"
+}
 ww_gs_1 = "PREFIX knora-api: <http://api.knora.org/ontology/knora-api/v2#>\n" +
     "PREFIX knora-api-simple: <http://api.knora.org/ontology/knora-api/simple/v2#>\n" +
     "PREFIX teimww: <http://api.0826-test-server.dasch.swiss/ontology/0826/teimww/v2#>\n" +
@@ -91,6 +105,7 @@ wordweb_info = {
     shortCode : "0826",
     method: "POST",
     url: 'https://api.0826-test-server.dasch.swiss/v2/searchextended',
+    requestType: 'gravsearch',
     gravSearch: ww_gs_2,
     user: {
         email: "root@example.com",
@@ -150,6 +165,7 @@ pou_info = {
     server : "api.0827-test-server.dasch.swiss",
     shortCode : "0827",
     method: "POST",
+    requestType: "gravsearch",
     url: 'https://api.0827-test-server.dasch.swiss/v2/searchextended',
     gravSearch: pou_gs_2,
     user: {
@@ -159,4 +175,4 @@ pou_info = {
     display: "properties"
 }
 
-result.request_infos = tdk_info;
+result.request_infos = fulltext_info;

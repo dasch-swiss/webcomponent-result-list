@@ -63,7 +63,17 @@ export async function getOntology(info) {
         return res.json().then(data => data['@graph']);
     });
 }
-
+export async function searchRequest(offset, infos) {
+    switch (infos['requestType']) {
+        case "gravsearch":
+            return gravSearchRequest(offset, infos);
+        case "fulltext":
+            return fulltextRequest(offset, infos);
+        default:
+            console.log('Didnt find matching search method');
+            break;
+    }
+}
 /**
  * Requests the data with the parameter given from parent component.
  *
@@ -85,7 +95,38 @@ export async function gravSearchRequest(offset, infos) {
         return res.json();
     });
 }
-
+export async function fulltextRequest(offset, infos) {
+    let url = infos['url'];
+    if (url.includes('?')) {
+        url += '?';
+    } else {
+        url += '&';
+    }
+    url += "offset=" + offset.toString();
+    console.log(url);
+    return fetch(url, {
+        method: infos['method']
+    }).then((res) => {
+        if (!res.ok) {
+            return Promise.reject(
+                new Error(`${res.status.toString()}: ${res.statusText}`)
+            )
+        }
+        console.log(res);
+        return res.json();
+    });
+}
+export async function searchRequestCount(offset, infos) {
+    switch (infos['requestType']) {
+        case "gravsearch":
+            return gravSearchRequestCount(offset, infos);
+        case "fulltextsearch":
+            return fulltextRequestCount(offset, infos);
+        default:
+            console.log('Didnt find matching search method');
+            break;
+    }
+}
 /**
  * Requests the data count with the parameter given from parent component and the offset 0.
  *
@@ -95,6 +136,20 @@ export async function gravSearchRequestCount(infos) {
     return fetch(infos['url'] + '/count', {
         method: infos['method'],
         body: infos['gravSearch']
+    }).then((res) => {
+        // Checks if request succeeded
+        if (!res.ok) {
+            return Promise.reject(
+                new Error(`${res.status.toString()}: ${res.statusText}`)
+            );
+        }
+
+        return res.json();
+    });
+}
+export async function fulltextRequestCount(infos) {
+    return fetch(infos['url'].replace('search/', 'search/count/'), {
+        method: infos['method']
     }).then((res) => {
         // Checks if request succeeded
         if (!res.ok) {
